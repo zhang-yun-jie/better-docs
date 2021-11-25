@@ -1,8 +1,12 @@
 {
-  "name": "better-docs",
+  "name": "@tnnevol/better-docs",
   "version": "2.3.2",
   "description": "JSdoc theme",
-  "repository": "github:SoftwareBrothers/better-docs",
+  "repository": "github:tnnevol/better-docs",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/tnnevol",
+    "access": "public"
+  },
   "main": "publish.js",
   "scripts": {
     "gulp": "./node_modules/.bin/gulp",
@@ -11,7 +15,7 @@
     "docs": "jsdoc -c jsdoc.json",
     "release": "semantic-release"
   },
-  "author": "Wojciech Krysiak",
+  "author": "tnnevol",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.5.5",

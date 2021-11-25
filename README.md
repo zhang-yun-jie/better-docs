@@ -18,6 +18,8 @@ This is how it looks:
   </tr>
 </table>
 
+# 该版本修改了项目头部的 cdn 源
+
 # Example
 
 Example documentation can be found here: https://softwarebrothers.github.io/example-design-system/index.html
@@ -89,14 +91,14 @@ And now you can run your `jsdoc` command and parse TypeScript files.
 
 It performs 4 operations:
 
-* First of all it transpiles all .ts and .tsx files to .js, so that all comments used by you are treated
-as a regular JSDoc comments.
+- First of all it transpiles all .ts and .tsx files to .js, so that all comments used by you are treated
+  as a regular JSDoc comments.
 
 Furthermore it:
 
-* Converts all your commented `type` aliases to `@typedef`
-* Converts all your commented `interface` definitions to `@interface`,
-* Converts descriptions for your public, protected, static class members
+- Converts all your commented `type` aliases to `@typedef`
+- Converts all your commented `interface` definitions to `@interface`,
+- Converts descriptions for your public, protected, static class members
 
 so they can be printed by JSDoc automatically.
 
@@ -249,7 +251,7 @@ class YourClass {
 
 # @component plugin [BETA]
 
-Better-docs also allows you to document your [React](https://reactjs.org/) and [Vue](https://vuejs.org/) components automatically. The only thing you have to do is to add a `@component` tag. It will take all props from your components and along with an `@example` tag - will generate a __live preview__.
+Better-docs also allows you to document your [React](https://reactjs.org/) and [Vue](https://vuejs.org/) components automatically. The only thing you have to do is to add a `@component` tag. It will take all props from your components and along with an `@example` tag - will generate a **live preview**.
 
 ## Installation instructions
 
@@ -266,7 +268,7 @@ Similar as before to add a plugin - you have to update the `plugins` section in 
 ...
 ```
 
-Since __component__ plugin uses [parcel](https://parceljs.org) as a bundler you have to install it globally. To do this run:
+Since **component** plugin uses [parcel](https://parceljs.org) as a bundler you have to install it globally. To do this run:
 
 ```
 # if you use npm
@@ -287,20 +289,18 @@ To document components simply add `@component` in your JSDoc documentation:
  * @component
  */
 const Documented = (props) => {
-  const { text } = props
-  return (
-    <div>{text}</div>
-  )
-}
+  const { text } = props;
+  return <div>{text}</div>;
+};
 
 Documented.propTypes = {
   /**
    * Text is a text
    */
   text: PropTypes.string.isRequired,
-}
+};
 
-export default Documented
+export default Documented;
 ```
 
 The plugin will take the information from your [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html) and put them into an array.
@@ -313,7 +313,7 @@ For Vue it looks similar:
  * @component
  */
 export default {
-  name: 'ExampleComponent',
+  name: "ExampleComponent",
   props: {
     spent: {
       type: Number,
@@ -322,9 +322,9 @@ export default {
     remaining: {
       type: Number,
       default: 40,
-    }
+    },
   },
-}
+};
 </script>
 ```
 
@@ -332,7 +332,7 @@ In this case, props will be taken from `props` property.
 
 ## Preview
 
-`@component` plugin also modifies the behaviour of `@example` tag in a way that it can generate an actual __component preview__. What you have to do is to add an `@example` tag and return component from it:
+`@component` plugin also modifies the behaviour of `@example` tag in a way that it can generate an actual **component preview**. What you have to do is to add an `@example` tag and return component from it:
 
 **React example:**
 
@@ -349,7 +349,7 @@ In this case, props will be taken from `props` property.
  */
 const Documented = (props) => {
   ///...
-}
+};
 ```
 
 **Vue example 1:**
@@ -362,9 +362,9 @@ const Documented = (props) => {
  * <ExampleComponent :spent="100" :remaining="50"></ExampleComponent>
  */
 export default {
-  name: 'ExampleComponent',
+  name: "ExampleComponent",
   //...
-}
+};
 </script>
 ```
 
@@ -386,9 +386,9 @@ export default {
  * }
  */
 export default {
-  name: 'ExampleComponent',
+  name: "ExampleComponent",
   //...
-}
+};
 </script>
 ```
 
@@ -434,7 +434,7 @@ const Component2 = (props) => {...}
 
 Most probably your components will have to be run within a particular context, like within redux store provider or with custom CSS libraries.
 You can simulate this by passing a `component.wrapper` in your `jsdoc.json`:
-_(To read more about passing options - scroll down to __Customization__ section)_
+_(To read more about passing options - scroll down to **Customization** section)_
 
 ```json
 // jsdoc.json
@@ -456,29 +456,31 @@ Wrapper component can look like this:
 
 ```javascript
 // wrapper-component.js
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-const store = createStore(() => ({}), {})
+const store = createStore(() => ({}), {});
 
 const Component = (props) => {
   return (
     <React.Fragment>
       <head>
-        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
+        <link
+          type="text/css"
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"
+        />
       </head>
       <Provider store={store}>
-        <BrowserRouter>
-          {props.children}
-        </BrowserRouter>
+        <BrowserRouter>{props.children}</BrowserRouter>
       </Provider>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Component
+export default Component;
 ```
 
 ## Styling React examples
@@ -495,30 +497,29 @@ yarn add postcss-modules
 
 and create a `.postcssrc` file:
 
-
 ```json
 // .postcssrc
 {
-	"modules": true
+  "modules": true
 }
 ```
 
 3. For [styled-components](https://www.styled-components.com/) you have to use wrapper component which looks like this:
 
 ```jsx
-import React from 'react'
-import { StyleSheetManager } from 'styled-components'
+import React from "react";
+import { StyleSheetManager } from "styled-components";
 
 const Component = (props) => {
-  const { frameContext } = props
+  const { frameContext } = props;
   return (
     <StyleSheetManager target={frameContext.document.head}>
       {props.children}
     </StyleSheetManager>
-  )
-}
+  );
+};
 
-export default Component
+export default Component;
 ```
 
 ## Adding commands to bundle entry file
@@ -558,58 +559,56 @@ Example configuration file with settings for both `default` and `better-docs` te
 
 ```json
 {
-    "tags": {
-        "allowUnknownTags": ["category"]
+  "tags": {
+    "allowUnknownTags": ["category"]
+  },
+  "source": {
+    "include": ["./src"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": [
+    "plugins/markdown",
+    "jsdoc-mermaid",
+    "node_modules/better-docs/category"
+  ],
+  "opts": {
+    "encoding": "utf8",
+    "destination": "docs/",
+    "readme": "readme.md",
+    "recurse": true,
+    "verbose": true,
+    "tutorials": "./docs-src/tutorials",
+    "template": "better-docs"
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "search": true,
+    "default": {
+      "staticFiles": {
+        "include": ["./docs-src/statics"]
+      }
     },
-    "source": {
-        "include": ["./src"],
-        "includePattern": ".js$",
-        "excludePattern": "(node_modules/|docs)"
-    },
-    "plugins": [
-        "plugins/markdown",
-        "jsdoc-mermaid",
-        "node_modules/better-docs/category"
-    ],
-    "opts": {
-        "encoding": "utf8",
-        "destination": "docs/",
-        "readme": "readme.md",
-        "recurse": true,
-        "verbose": true,
-        "tutorials": "./docs-src/tutorials",
-        "template": "better-docs"
-    },
-    "templates": {
-        "cleverLinks": false,
-        "monospaceLinks": false,
-        "search": true,
-        "default": {
-            "staticFiles": {
-              "include": [
-                  "./docs-src/statics"
-              ]
-            }
+    "better-docs": {
+      "name": "AdminBro Documentation",
+      "logo": "images/logo.png",
+      "title": "", // HTML title
+      "css": "style.css",
+      "trackingCode": "tracking-code-which-will-go-to-the-HEAD",
+      "hideGenerator": false,
+      "navLinks": [
+        {
+          "label": "Github",
+          "href": "https://github.com/SoftwareBrothers/admin-bro"
         },
-        "better-docs": {
-            "name": "AdminBro Documentation",
-            "logo": "images/logo.png",
-            "title": "", // HTML title
-            "css": "style.css",
-            "trackingCode": "tracking-code-which-will-go-to-the-HEAD",
-	    "hideGenerator": false,
-            "navLinks": [
-                {
-                    "label": "Github",
-                    "href": "https://github.com/SoftwareBrothers/admin-bro"
-                },
-                {
-                    "label": "Example Application",
-                    "href": "https://admin-bro-example-app.herokuapp.com/admin"
-                }
-            ]
+        {
+          "label": "Example Application",
+          "href": "https://admin-bro-example-app.herokuapp.com/admin"
         }
+      ]
     }
+  }
 }
 ```
 
@@ -664,9 +663,9 @@ yarn
 
 It supports following EVN variables:
 
-* `DOCS_COMMAND` - a command in your root repo which you use to generate documentation: i.e. `DOCS_COMMAND='jsdoc -c jsdoc.json'` or `npm run docs` if you have `docs` command defined in `package.json` file
-* `DOCS_OUTPUT` - where your documentation is generated. It should point to the same folder your jsdoc `--destination` conf. But make sure that it is relative to the path where you cloned `better-docs`.
-* `DOCS` - list of folders from your original repo what you want to watch for changes. Separated by comma.
+- `DOCS_COMMAND` - a command in your root repo which you use to generate documentation: i.e. `DOCS_COMMAND='jsdoc -c jsdoc.json'` or `npm run docs` if you have `docs` command defined in `package.json` file
+- `DOCS_OUTPUT` - where your documentation is generated. It should point to the same folder your jsdoc `--destination` conf. But make sure that it is relative to the path where you cloned `better-docs`.
+- `DOCS` - list of folders from your original repo what you want to watch for changes. Separated by comma.
 
 ```
 cd better-docs
@@ -690,8 +689,7 @@ better-docs is Copyright © 2019 SoftwareBrothers.co. It is free software and ma
 
 <img src="https://softwarebrothers.co/assets/images/software-brothers-logo-full.svg" width=240>
 
-
 We're an open, friendly team that helps clients from all over the world to transform their businesses and create astonishing products.
 
-* We are available for [hire](https://softwarebrothers.co/contact).
-* If you want to work for us - check out the [career page](https://softwarebrothers.co/career).
+- We are available for [hire](https://softwarebrothers.co/contact).
+- If you want to work for us - check out the [career page](https://softwarebrothers.co/career).
