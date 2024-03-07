@@ -1,10 +1,9 @@
 {
-  "name": "@tnnevol/better-docs",
+  "name": "@yun-jie/better-docs",
   "version": "2.3.3",
   "description": "JSdoc theme",
-  "repository": "github:tnnevol/better-docs",
+  "repository": "https://github.com/zhang-yun-jie/better-docs",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/tnnevol",
     "access": "public"
   },
   "main": "publish.js",
@@ -15,7 +14,7 @@
     "docs": "jsdoc -c jsdoc.json",
     "release": "semantic-release"
   },
-  "author": "tnnevol",
+  "author": "zhang-yun-jie <1520420636@qq.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.5.5",
